@@ -1,0 +1,234 @@
+
+<!-- saved from url=(0056)https://cs.stanford.edu/~karpathy/svmjs/demo/demonn.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>svmjs Neural Networks in Javascript: demo</title>
+<link type="text/css" href="./svmjs Neural Networks in Javascript_ demo_files/jquery-ui-1.8.21.custom.css" rel="Stylesheet">	
+<script type="text/javascript" src="./svmjs Neural Networks in Javascript_ demo_files/jquery-1.7.2.min.js.t&#7843;i xu&#7889;ng"></script>
+<script type="text/javascript" src="./svmjs Neural Networks in Javascript_ demo_files/jquery-ui-1.8.21.custom.min.js.t&#7843;i xu&#7889;ng"></script>
+<script src="./svmjs Neural Networks in Javascript_ demo_files/npgmain.js.t&#7843;i xu&#7889;ng"></script>
+<script src="./svmjs Neural Networks in Javascript_ demo_files/nn.js.t&#7843;i xu&#7889;ng"></script>
+<script type="text/javascript">
+
+/*
+This demo includes npg library (notpygamejs) that I wrote a while ago. It can
+be found on my Github page (https://github.com/karpathy/notpygamejs). It's a 
+quick and dirty canvas wrapper that has some helped functions I use often.
+It's main use is to contain a main loop and expose methods update(), draw(), 
+as well as some events keyUp(), mouseClick() etc.
+*/
+
+var N= 10; //number of data points
+var data = new Array(N);
+var labels= new Array(N);
+var nn= new nnjs.NeuralNetwork();
+var dirty= true;
+var ss= 50.0; // scaling factor for drawing
+var density= 2; // density of drawing. Decrease for higher resolution (but slower)
+var avgerr= 0;
+
+function myinit(){
+  
+  data[0]=[-0.4326  ,  1.1909 ];
+  data[1]= [1.5, 3.0];
+  data[2]=[0.1253 , -0.0376   ];
+  data[3]=[0.2877 ,   0.3273  ];
+  data[4]=[-1.1465 ,   0.1746 ];
+  data[5]=[1.8133 ,   2.1139  ];
+  data[6]=[2.7258 ,   3.0668  ];
+  data[7]=[1.4117 ,   2.0593  ];
+  data[8]=[4.1832 ,   1.9044  ];
+  data[9]=[1.8636 ,   1.1677  ];
+  
+  labels[0]= 1;
+  labels[1]= 1;
+  labels[2]= 1;
+  labels[3]= 1;
+  labels[4]= 1;
+  labels[5]= -1;
+  labels[6]= -1;
+  labels[7]= -1;
+  labels[8]= -1;
+  labels[9]= -1;
+  
+  data[10]=[-0.5 ,   -0.5  ];
+  labels[10]= -1;
+  data[11]=[1.0 ,   2.0 ];
+  labels[11]= 1;
+  data[12]=[1.0 ,   -1.0 ];
+  labels[12]= 1;
+  
+  N= data.length;
+  
+  nn.initialize([2,10,10,1]);
+}
+
+function retrain(){
+  numiters= 100;
+  var sumerr= 0;
+  for(var iter=0;iter<numiters;iter++) {
+    for(var i=0;i<data.length;i++) {
+      var err= nn.train(data[i], [labels[i]/2.0+0.5]); // convert label to 0-1
+      sumerr += err;
+    }
+  }
+  avgerr= sumerr/numiters/data.length;
+  dirty= true;
+}
+  
+function update(){
+    retrain();
+}
+
+function draw(){
+    if(!dirty) return;
+    
+    ctx.clearRect(0,0,WIDTH,HEIGHT);
+    
+    // draw decisions in the grid
+    for(var x=0.0; x<=WIDTH; x+= density) {
+      for(var y=0.0; y<=HEIGHT; y+= density) {
+        var dec= nn.forwardProp([(x-WIDTH/2)/ss, (y-HEIGHT/2)/ss])[0];
+        if(dec>0.5) ctx.fillStyle = 'rgb(150,250,150)';
+        else ctx.fillStyle = 'rgb(250,150,150)';
+        
+        ctx.fillRect(x-density/2-1, y-density-1, density+2, density+2);
+      }
+    }
+    
+    // draw axes
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgb(50,50,50)';
+    ctx.lineWidth = 1;
+    ctx.moveTo(0, HEIGHT/2);
+    ctx.lineTo(WIDTH, HEIGHT/2);
+    ctx.moveTo(WIDTH/2, 0);
+    ctx.lineTo(WIDTH/2, HEIGHT);
+    ctx.stroke();
+
+    // draw datapoints.
+    ctx.strokeStyle = 'rgb(0,0,0)';
+    for(var i=0;i<N;i++) {
+      if(labels[i]==1) ctx.fillStyle = 'rgb(100,200,100)';
+      else ctx.fillStyle = 'rgb(200,100,100)';
+      drawCircle(data[i][0]*ss+WIDTH/2, data[i][1]*ss+HEIGHT/2, 5);
+    }
+    
+    ctx.fillStyle= 'rgb(0,0,0)';
+    ctx.fillText("Average error: " + avgerr.toPrecision(4), 10, HEIGHT-30); 
+    dirty= false;
+}
+
+function mouseClick(x, y, shiftPressed){
+  
+  // add datapoint at location of click
+  data[N] = [(x-WIDTH/2)/ss, (y-HEIGHT/2)/ss];
+  labels[N] = shiftPressed ? 1 : -1;
+  N += 1;
+  
+}
+
+function keyUp(key){
+  
+  if(key==81) {
+    var nl=parseInt(prompt("Enter number of hidden layers (default = 2)","2")) || 2;
+    if(nl && nl>0) {
+        ssadd=[2];
+        for(var i=0;i<nl;i++) {
+            var e= parseInt(prompt("Enter size of hidden layer " + (i+1) + ". (default: 10). Warning: setting these too high will blow up your computer. Number of parameters is quadratic in these.", 10)) || 10;
+            ssadd.push(e);
+        }
+        b="ok setting architecture to layers of size ";
+        ssadd.push(1);
+        for(var i=0;i<ssadd.length;i++) {
+            b += ssadd[i] + ", "
+        }
+        alert(b);
+        nn.initialize(ssadd);
+    }
+  }
+  
+  if(key==82) { // 'r'
+    nn.initialize([2,5,5,1]);
+  }
+  
+  if(key==83) { //'s'
+    console.log('shock!');
+    nn.shock();
+  }
+}
+
+function keyDown(key){
+}
+</script>
+
+<style type="text/css">
+canvas { 
+    border: 1px solid #555;
+    margin-top: 10px;
+}
+body {
+    text-align: center;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+}
+h1 {
+  font-size: 16px;
+}
+p {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#dec {
+  width: 100%;
+  height: 100px;
+  background-color: #F5FAFF;
+  border-bottom: 1px solid #E5EAEF;
+  margin-bottom: 20px;
+}
+#optsdiv {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<script style="display: none;">var tvt = tvt || {}; tvt.captureVariables = function(a){for(var b=
+new Date,c={},d=Object.keys(a||{}),e=0,f;f=d[e];e++)if(a.hasOwnProperty(f)&&"undefined"!=typeof a[f])try{var g=[];c[f]=JSON.stringify(a[f],function(a,b){try{if("function"!==typeof b){if("object"===typeof b&&null!==b){if(b instanceof HTMLElement||b instanceof Node||-1!=g.indexOf(b))return;g.push(b)}return b}}catch(H){}})}catch(l){}a=document.createEvent("CustomEvent");a.initCustomEvent("TvtRetrievedVariablesEvent",!0,!0,{variables:c,date:b});window.dispatchEvent(a)};window.setTimeout(function() {tvt.captureVariables({'dataLayer.hide': (function(a){a=a.split(".");for(var b=window,c=0;c<a.length&&(b=b[a[c]],b);c++);return b})('dataLayer.hide'),'gaData': window['gaData'],'dataLayer': window['dataLayer']})}, 2000);</script></head>
+
+<body onload="NPGinit(20);">
+
+<div style="position: absolute; top: 10px; left: 30px;">
+<b>Also check out same GUI<br> demo with SVM <a href="http://cs.stanford.edu/~karpathy/svmjs/demo/">here.</a></b>
+<br><br>
+<b>Also check out same GUI<br>demo with Random Forest <a href="http://cs.stanford.edu/~karpathy/svmjs/demo/demoforest.html">here.</a></b>
+</div>
+
+<div id="dec">
+<br><h1>Neural Networks demo in Javascript</h1>
+<p>
+Find code (soon) on <a href="https://github.com/karpathy/svmjs">Github</a> <br>
+Find me on Twitter <a href="https://twitter.com/karpathy">@karpathy</a>
+</p>
+</div>
+
+<p>
+<b>mouse click</b>: add red data point<br>
+<b>shift + mouse click</b>: add green data point<br>
+<b>'r'</b>: re-initialize weights to random<br>
+<b>'s'</b>: shock the weights (change randomly a bit)<br>
+<b>'q'</b>: change architecture (number of neurons, layers of neurons)
+</p>
+
+<canvas id="NPGcanvas" width="500" height="500">Browser not supported for Canvas. Get a real browser.</canvas><br><br>
+<p>The network above is by default a 2-10-10-1 Neural Network. <br>It has 2 inputs (x and y coordinates), 2 layers of 10 hidden neurons each, and one output neuron that activates for green class.<br>
+</p>
+
+<div style="width:500px; font-size:20px; color:#A00; margin: 0 auto; padding-top: 100px;">
+  Note, this demo is depractated in favor of much better and recent demos over at <a href="http://convnetjs.com/">convnetjs.com</a>.
+</div>
+
+
+
+</body></html>
