@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <video autoplay></video>
+    <img id ="screenshot-img" src="">
+    <canvas style="display:none;"></canvas>
+    <button id="screenshot-button">Take screenshot</button>
+    <script>
+        function update(stream) {
+            document.querySelector('video').src = stream.url;
+        }
+        function hasGetUserMedia() {
+            return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+        }
+
+        if (hasGetUserMedia()) {
+            // Good to go!
+        } else {
+            alert('getUserMedia() is not supported by your browser');
+        }
+        const constraints = {
+            video: true
+        };
+
+        const video = document.querySelector('video');
+
+        function handleSuccess(stream) {
+            video.srcObject = stream;
+        }
+
+        function handleError(error) {
+            console.error('Reeeejected!', error);
+        }
+
+        navigator.mediaDevices.getUserMedia(constraints).
+            then(handleSuccess).catch(handleError);
+
+        const button = document.querySelector('#screenshot-button');
+        const img = document.querySelector('#screenshot-img');
+        //const video = document.querySelector('#screenshot-video');
+
+        const canvas = document.createElement('canvas');
+
+        button.onclick = video.onclick = function () {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var a=canvas.getContext('2d').drawImage(video, 0, 0);
+            // Other browsers will fall back to image/png
+            img.src = canvas.toDataURL('image/webp');
+        };
+    </script>
+    
+</body>
+</html>
