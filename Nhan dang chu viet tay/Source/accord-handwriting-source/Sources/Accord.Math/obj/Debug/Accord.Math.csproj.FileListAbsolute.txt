@@ -1,0 +1,8 @@
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\bin\Debug\Accord.Math.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\bin\Debug\Accord.Math.pdb
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\bin\Debug\AForge.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\bin\Debug\AForge.Math.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\obj\Debug\Accord.Math.csprojResolveAssemblyReference.cache
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\obj\Debug\Accord.Math.csproj.CoreCompileInputs.cache
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\obj\Debug\Accord.Math.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Math\obj\Debug\Accord.Math.pdb

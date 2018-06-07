@@ -1,0 +1,16 @@
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\Accord.Controls.Statistics.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\Accord.Controls.Statistics.pdb
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\Accord.Math.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\Accord.Statistics.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\AForge.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\AForge.Math.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\ZedGraph.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\Accord.Math.pdb
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\Accord.Statistics.pdb
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\bin\Debug\ZedGraph.xml
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\obj\Debug\Accord.Controls.Statistics.csprojResolveAssemblyReference.cache
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\obj\Debug\Accord.Controls.HistogramView.resources
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\obj\Debug\Accord.Controls.Statistics.csproj.GenerateResource.Cache
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\obj\Debug\Accord.Controls.Statistics.csproj.CoreCompileInputs.cache
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\obj\Debug\Accord.Controls.Statistics.dll
+E:\15CTT1\KTTTNT\Nhan dang chu viet tay\Source\accord-handwriting-source\Sources\Accord.Statistics.Controls\obj\Debug\Accord.Controls.Statistics.pdb
