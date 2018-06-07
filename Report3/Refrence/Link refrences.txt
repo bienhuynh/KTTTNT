@@ -1,0 +1,6 @@
+http://image-net.org
+https://developer.nvidia.com/about-cuda
+http://goliath.liacs.nl
+https://cs.stanford.edu/people/karpathy/convnetjs/index.html
+https://github.com/tiepvupsu/tiepvupsu.github.io
+https://machinelearningcoban.com/2017/04/09/smv/#-bai-toan-doi-ngau-cho-svm
